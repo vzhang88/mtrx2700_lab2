@@ -6,7 +6,7 @@ void Init_SCI0 (void);
 
 void putcSCI0 (char cx);
 
-void putsSCI0 (char* dx);
+
 
 // serial interrupt function
  

@@ -34,12 +34,6 @@ void putcSCI0 (char cx) {
   }
 }
 
-void putsSCI0 (char* dx) {
-  if (*dx != 0) {
-    putcSCI0 (*dx);
-    dx++;
-  } 
-}
 
 
 
@@ -49,7 +43,7 @@ __interrupt void SCI0_ISR(void) {
   
   if (SCI0SR1 & 0x20) {
   // read status register to reset flag
-     
+    
      
      cx = SCI0DRL;
      
@@ -88,9 +82,6 @@ __interrupt void SCI0_ISR(void) {
      
       
      *ptr = 0;
-      
-      
-    
      
      
   
@@ -100,8 +91,10 @@ __interrupt void SCI0_ISR(void) {
   
   if (SCI0SR1 & 0x80) {
       
-
-    
+     // write operation
+  
+   
+   
    
   }
   
