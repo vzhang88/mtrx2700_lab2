@@ -105,13 +105,13 @@ __interrupt void SCI0_ISR(void) {
   // read status register to reset flag
      
      
-     getsSCI0(ptr);
+     getsSCI0(ptr);   // store what is typed into terminal into array
      
-     putcSCI0(0x0D);
+     putcSCI0(0x0D);  // print an enter to the terminal
      
-     delay(1000);
+     delay(1000);     // delay
      
-     putsSCI0(ptr);
+     putsSCI0(ptr);   // output array to terminal 
      
      
      
@@ -120,7 +120,7 @@ __interrupt void SCI0_ISR(void) {
   
   if (SCI0SR1 & 0x80) {
      
-     putsSCI0(ptr);
+     
   }
   
   
