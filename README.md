@@ -1,1 +1,1 @@
-# mtrx2700_lab2
+# Lab 2: C coding for microcontrollers
