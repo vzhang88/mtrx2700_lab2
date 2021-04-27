@@ -10,6 +10,8 @@ char getcSCI0 (void);
 
 void putsSCI0 (char *cx);
 
+void delay (int x);
+
 // serial interrupt function
  
 __interrupt void SCI0_ISR(void);

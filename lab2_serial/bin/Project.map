@@ -28,8 +28,8 @@ SECTION-ALLOCATION SECTION
 Section Name                    Size  Type     From       To       Segment
 ---------------------------------------------------------------------------------------------
 .init                              7     R     0xC000     0xC006   ROM_C000
-NON_BANKED                        67     R     0xC007     0xC049   ROM_C000
-.text                             59     R   0x308000   0x30803A   PAGE_30
+NON_BANKED                        78     R     0xC007     0xC054   ROM_C000
+.text                             83     R   0x308000   0x308052   PAGE_30
 .stack                           256   R/W     0x1000     0x10FF   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
 .abs_section_9                     1   N/I        0x9        0x9   .absSeg1
@@ -373,12 +373,12 @@ NON_BANKED                        67     R     0xC007     0xC049   ROM_C000
 .abs_section_2ae                   2   N/I      0x2AE      0x2AF   .absSeg339
 .abs_section_2be                   2   N/I      0x2BE      0x2BF   .absSeg340
 .abs_section_ff80                126     R     0xFF80     0xFFFD   .absSeg341
-.common                          203   R/W     0x1100     0x11CA   RAM
+.common                          205   R/W     0x1100     0x11CC   RAM
 .vectSeg342_vect                   2     R     0xFFFE     0xFFFF   .vectSeg342
 
 Summary of section sizes per section type:
-READ_ONLY (R):         105 (dec:      261)
-READ_WRITE (R/W):      1CB (dec:      459)
+READ_ONLY (R):         128 (dec:      296)
+READ_WRITE (R/W):      1CD (dec:      461)
 NO_INIT (N/I):         190 (dec:      400)
 
 *********************************************************************************************
@@ -471,7 +471,7 @@ MODULE:                 -- mc9s12dg256.c.o --
      _PWMSDN                                     C4       1       1       0   .abs_section_c4
      _SCI0CR1                                    CA       1       1       1   .abs_section_ca
      _SCI0CR2                                    CB       1       1       1   .abs_section_cb
-     _SCI0SR1                                    CC       1       1       2   .abs_section_cc
+     _SCI0SR1                                    CC       1       1       3   .abs_section_cc
      _SCI0SR2                                    CD       1       1       0   .abs_section_cd
      _SCI0DRH                                    CE       1       1       0   .abs_section_ce
      _SCI0DRL                                    CF       1       1       4   .abs_section_cf
@@ -747,16 +747,18 @@ MODULE:                 -- Start12.c.o --
      __SEG_END_SSTACK                          1100       0       0       1               
 MODULE:                 -- serial.c.o --
 - PROCEDURES:
-     Init_SCI0                               30801F      15      21       2   .text       
-     putcSCI0                                308034       7       7       6   .text       
-     SCI0_ISR                                  C007      41      65       1   NON_BANKED  
+     Init_SCI0                               30801F      1B      27       2   .text       
+     putcSCI0                                30803A       7       7       8   .text       
+     putsSCI0                                308041      12      18       2   .text       
+     SCI0_ISR                                  C007      4C      76       1   NON_BANKED  
 - VARIABLES:
-     array                                     1100      C8     200       1   .common     
+     array                                     1100      C8     200       2   .common     
      ptr                                       11C8       2       2       7   .common     
-     cx                                        11CA       1       1       2   .common     
+     cx                                        11CA       1       1       3   .common     
+     dx                                        11CB       2       2       2   .common     
 MODULE:                 -- isr_vectors.c.o --
 - PROCEDURES:
-     UnimplementedISR                          C048       2       2      62   NON_BANKED  
+     UnimplementedISR                          C053       2       2      62   NON_BANKED  
 - VARIABLES:
      _vect                                     FF80      7E     126       0   .abs_section_ff80
 
@@ -767,7 +769,7 @@ MODULE STATISTIC
   mc9s12dg256.c.o                            400      0      0
   main.c.o                                     0     31      0
   Start12.c.o                                  0      7      0
-  serial.c.o                                 203     93      0
+  serial.c.o                                 205    128      0
   isr_vectors.c.o                              0      2    126
   other                                      256      2      0
 
@@ -775,7 +777,7 @@ MODULE STATISTIC
 SECTION USE IN OBJECT-ALLOCATION SECTION
 ---------------------------------------------------------------------------------------------
 SECTION: ".text"
-  main Init_SCI0 putcSCI0 
+  main Init_SCI0 putcSCI0 putsSCI0 
 SECTION: ".init"
   _Startup 
 SECTION: "NON_BANKED"
@@ -1463,7 +1465,7 @@ SECTION: ".abs_section_2ae"
 SECTION: ".abs_section_2be"
   _CAN4TXTSR 
 SECTION: ".common"
-  array ptr cx 
+  array ptr cx dx 
 SECTION: ".abs_section_ff80"
   _vect 
 
@@ -1592,7 +1594,7 @@ OBJECT LIST SORTED BY ADDRESS
      _SCI0BD                                     C8       2       2       2   .abs_section_c8
      _SCI0CR1                                    CA       1       1       1   .abs_section_ca
      _SCI0CR2                                    CB       1       1       1   .abs_section_cb
-     _SCI0SR1                                    CC       1       1       2   .abs_section_cc
+     _SCI0SR1                                    CC       1       1       3   .abs_section_cc
      _SCI0SR2                                    CD       1       1       0   .abs_section_cd
      _SCI0DRH                                    CE       1       1       0   .abs_section_ce
      _SCI0DRL                                    CF       1       1       4   .abs_section_cf
@@ -1812,20 +1814,25 @@ OBJECT LIST SORTED BY ADDRESS
      _CAN4TXDLR                                 2BC       1       1       0   .abs_section_2bc
      _CAN4TXTBPR                                2BD       1       1       0   .abs_section_2bd
      _CAN4TXTSR                                 2BE       2       2       0   .abs_section_2be
-     array                                     1100      C8     200       1   .common     
+     array                                     1100      C8     200       2   .common     
      ptr                                       11C8       2       2       7   .common     
-     cx                                        11CA       1       1       2   .common     
+     cx                                        11CA       1       1       3   .common     
+     dx                                        11CB       2       2       2   .common     
      _Startup                                  C000       7       7       0   .init       
-     SCI0_ISR                                  C007      41      65       1   NON_BANKED  
-     UnimplementedISR                          C048       2       2      62   NON_BANKED  
+     SCI0_ISR                                  C007      4C      76       1   NON_BANKED  
+     UnimplementedISR                          C053       2       2      62   NON_BANKED  
      _vect                                     FF80      7E     126       0   .abs_section_ff80
      main                                    308000      1F      31       2   .text       
-     Init_SCI0                               30801F      15      21       2   .text       
-     putcSCI0                                308034       7       7       6   .text       
+     Init_SCI0                               30801F      1B      27       2   .text       
+     putcSCI0                                30803A       7       7       8   .text       
+     putsSCI0                                308041      12      18       2   .text       
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
 ---------------------------------------------------------------------------------------------
+NOT USED PROCEDURES
+serial.c.o:
+  delay 
 
 *********************************************************************************************
 COPYDOWN SECTION
@@ -1835,11 +1842,12 @@ COPYDOWN SECTION
 OBJECT-DEPENDENCIES SECTION
 ---------------------------------------------------------------------------------------------
 _Startup                  USES __SEG_END_SSTACK main 
-SCI0_ISR                  USES _SCI0SR1 _SCI0DRL cx ptr putcSCI0 
+SCI0_ISR                  USES _SCI0SR1 _SCI0DRL cx ptr putcSCI0 dx putsSCI0 
 _vect                     USES UnimplementedISR SCI0_ISR 
 main                      USES Init_SCI0 
-Init_SCI0                 USES _SCI0BD _SCI0CR1 _SCI0CR2 array ptr 
+Init_SCI0                 USES _SCI0BD _SCI0CR1 _SCI0CR2 array ptr dx 
 putcSCI0                  USES _SCI0SR1 _SCI0DRL 
+putsSCI0                  USES putcSCI0 cx 
 
 *********************************************************************************************
 DEPENDENCY TREE
@@ -1861,7 +1869,11 @@ DEPENDENCY TREE
  +- SCI0_ISR            
     | 
     +- putcSCI0            
-         
+    |    
+    +- putsSCI0            
+       | 
+       +- putcSCI0             (see above)
+          
 *********************************************************************************************
 STATISTIC SECTION
 ---------------------------------------------------------------------------------------------
@@ -1869,5 +1881,5 @@ STATISTIC SECTION
 ExeFile:
 --------
 Number of blocks to be downloaded: 5
-Total size of all blocks to be downloaded: 261
+Total size of all blocks to be downloaded: 296
 

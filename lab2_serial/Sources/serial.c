@@ -9,6 +9,7 @@
 char array[200];
 char* ptr;
 char cx;
+char* dx;
 
    
 void Init_SCI0 (void) {
@@ -21,6 +22,7 @@ void Init_SCI0 (void) {
   
   ptr = array;         // pointer points to start of array
 
+  dx = array;
   return;
   
 }
@@ -33,7 +35,21 @@ void putcSCI0 (char cx) {
   }
 }
 
+void putsSCI0 (char *dx) {
+ while (!(*dx)) {
+    putcSCI0(*dx);
+    cx++;
+    
+ }
+}
 
+
+void delay (int x) {
+  int i;
+  for (i = 0; i < x; i++) {
+    int y = 0x00;
+  }
+}
 
 
 #pragma CODE_SEG __NEAR_SEG NON_BANKED
@@ -70,8 +86,7 @@ __interrupt void SCI0_ISR(void) {
        } else {
         
          ptr++; // not a backspace, increment pointer by 1
-     
-                 
+                        
        }
        
     
@@ -90,10 +105,9 @@ __interrupt void SCI0_ISR(void) {
   if (SCI0SR1 & 0x80) {
       
      // write operation
-  
-   
-   
-   
+     putsSCI0 (dx);
+      
+
   }
   
   

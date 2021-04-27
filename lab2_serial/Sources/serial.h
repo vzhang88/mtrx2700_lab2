@@ -7,15 +7,17 @@ void Init_SCI0 (void);
 
 void putcSCI0 (char cx);
 
-typedef struct ports {
-  
-  int BDH_value;
-  int BDL_value;
-  int CR1_value;
-  int CR2_value;
-};
+void putsSCI0 (char *dx);
 
-// serial interrupt function
+typedef struct ports {
+
+    int BDH_value;
+    int BDL_value;
+    int CR1_value;
+    int CR2_value;
+} port;
+
+void delay (int x);
  
 __interrupt void SCI0_ISR(void);
 

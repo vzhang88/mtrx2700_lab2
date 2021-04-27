@@ -1,15 +1,16 @@
 #include <hidef.h>      /* common defines and macros */
 #include "derivative.h"      /* derivative-specific definitions */
 
+#include "serial.h"
+#include "stdlib.h"
+
+
 
 
 void main(void) {
-  /* put your own code here */
   
-    
-  Init_SCI0();
+  
 
-  
 	EnableInterrupts;
 
 
