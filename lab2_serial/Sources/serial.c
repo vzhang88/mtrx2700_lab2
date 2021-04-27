@@ -10,7 +10,6 @@ char array[200];
 char* ptr;
 char cx;
 
-
    
 void Init_SCI0 (void) {
   
@@ -20,7 +19,7 @@ void Init_SCI0 (void) {
   SCI0CR1 = 0x4C;       // clear all options
   SCI0CR2 = 0xAC;       // enable transmitter and receiver and receive interrupt
   
-  ptr = array;
+  ptr = array;         // pointer points to start of array
 
   return;
   
@@ -45,38 +44,37 @@ __interrupt void SCI0_ISR(void) {
   // read status register to reset flag
     
      
-     cx = SCI0DRL;
+     cx = SCI0DRL;    // read SCI0DRL
      
      
-     SCI0DRL = cx;
+     SCI0DRL = cx;    // show what has beeen entered on terminal
      
-     if (cx != 0x0D) {
+     if (cx != 0x0D) {    // not a carriage return
       
      
-       *ptr = SCI0DRL;
+       *ptr = SCI0DRL;  // store character in array
        
-         putcSCI0(*ptr);
+         putcSCI0(*ptr);  
        
        if (cx == 0x08)  {  //if it is a backspace character
             
          ptr-- ;//move back string pointer
           
       
-             //SCI0DRL = 0x20;
-             putcSCI0(0x20);
-             putcSCI0(0x08);
-         
-        
+         //SCI0DRL = 0x20;
+         putcSCI0(0x20);   //output a space
+         putcSCI0(0x08);   // output a backspace
+     
          
           
        } else {
         
-         
-         ptr++;
+         ptr++; // not a backspace, increment pointer by 1
+     
+                 
        }
        
-       
-     
+    
       
      } 
      

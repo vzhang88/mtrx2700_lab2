@@ -29,7 +29,7 @@ Section Name                    Size  Type     From       To       Segment
 ---------------------------------------------------------------------------------------------
 .init                              7     R     0xC000     0xC006   ROM_C000
 NON_BANKED                        67     R     0xC007     0xC049   ROM_C000
-.text                             43     R   0x308000   0x30802A   PAGE_30
+.text                             59     R   0x308000   0x30803A   PAGE_30
 .stack                           256   R/W     0x1000     0x10FF   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
 .abs_section_9                     1   N/I        0x9        0x9   .absSeg1
@@ -377,7 +377,7 @@ NON_BANKED                        67     R     0xC007     0xC049   ROM_C000
 .vectSeg342_vect                   2     R     0xFFFE     0xFFFF   .vectSeg342
 
 Summary of section sizes per section type:
-READ_ONLY (R):          F5 (dec:      245)
+READ_ONLY (R):         105 (dec:      261)
 READ_WRITE (R/W):      1CB (dec:      459)
 NO_INIT (N/I):         190 (dec:      400)
 
@@ -737,7 +737,7 @@ MODULE:                 -- mc9s12dg256.c.o --
      _CAN4TXTSR                                 2BE       2       2       0   .abs_section_2be
 MODULE:                 -- main.c.o --
 - PROCEDURES:
-     main                                    308000       F      15       2   .text       
+     main                                    308000      1F      31       2   .text       
 - VARIABLES:
 MODULE:                 -- Start12.c.o --
 - PROCEDURES:
@@ -747,8 +747,8 @@ MODULE:                 -- Start12.c.o --
      __SEG_END_SSTACK                          1100       0       0       1               
 MODULE:                 -- serial.c.o --
 - PROCEDURES:
-     Init_SCI0                               30800F      15      21       2   .text       
-     putcSCI0                                308024       7       7       6   .text       
+     Init_SCI0                               30801F      15      21       2   .text       
+     putcSCI0                                308034       7       7       6   .text       
      SCI0_ISR                                  C007      41      65       1   NON_BANKED  
 - VARIABLES:
      array                                     1100      C8     200       1   .common     
@@ -765,7 +765,7 @@ MODULE STATISTIC
   Name                                      Data   Code  Const
 ---------------------------------------------------------------------------------------------
   mc9s12dg256.c.o                            400      0      0
-  main.c.o                                     0     15      0
+  main.c.o                                     0     31      0
   Start12.c.o                                  0      7      0
   serial.c.o                                 203     93      0
   isr_vectors.c.o                              0      2    126
@@ -1819,9 +1819,9 @@ OBJECT LIST SORTED BY ADDRESS
      SCI0_ISR                                  C007      41      65       1   NON_BANKED  
      UnimplementedISR                          C048       2       2      62   NON_BANKED  
      _vect                                     FF80      7E     126       0   .abs_section_ff80
-     main                                    308000       F      15       2   .text       
-     Init_SCI0                               30800F      15      21       2   .text       
-     putcSCI0                                308024       7       7       6   .text       
+     main                                    308000      1F      31       2   .text       
+     Init_SCI0                               30801F      15      21       2   .text       
+     putcSCI0                                308034       7       7       6   .text       
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
@@ -1869,5 +1869,5 @@ STATISTIC SECTION
 ExeFile:
 --------
 Number of blocks to be downloaded: 5
-Total size of all blocks to be downloaded: 245
+Total size of all blocks to be downloaded: 261
 
