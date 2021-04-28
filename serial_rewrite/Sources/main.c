@@ -1,17 +1,16 @@
 #include <hidef.h>      /* common defines and macros */
 #include "derivative.h"      /* derivative-specific definitions */
-#include "stdlib.h"
 
-#include "serial.h"
 
 
 void main(void) {
+  /* put your own code here */
+
+  struct port sc0;
   
-  
-  Init_SCI0();
+
 
 	EnableInterrupts;
-	
 
 
   for(;;) {

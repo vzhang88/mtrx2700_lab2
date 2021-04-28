@@ -10,17 +10,17 @@ char array[200];
 char* ptr;
 char cx;
 char* dx;
-char str[200] = "abcdefghijklmnop";
+int send;
 
 
    
-void Init_SCI0 (struct ports *data) {
+void Init_SCI0 (void) {
   
   // set up serial port SCI0 to use interrupt
-  SCI0BDH = data->BDH_value;       // set up baud rate
-  SCI0BDL = data->BDL_value;       // set up baud rate
-  SCI0CR1 = data->CR1_value;       // clear all options
-  SCI0CR2 = data->CR2_value;       // enable transmitter and receiver and receive interrupt
+  SCI0BDH = 0x00;       // set up baud rate
+  SCI0BDL = 0x9C;       // set up baud rate
+  SCI0CR1 = 0x4C;       // clear all options
+  SCI0CR2 = 0xAC;       // enable transmitter and receiver and receive interrupt
   
   ptr = array;         // pointer points to start of array
   
@@ -92,24 +92,38 @@ __interrupt void SCI0_ISR(void) {
          
           
        } else {
-        
+              
          ptr++; // not a backspace, increment pointer by 1
            
-         *ptr = 0;                
+                        
        }
-       
+        
     
       
-     } 
+     } else {
+       
+       putcSCI0(cx);
+       *ptr = 0; 
+       send = 1;
+     
+     }
        
   }  
   
   
   
-  while ((SCI0SR1 & 0x80) && ((*dx) != 0) && (cx==0x0D)) {
+  while ((SCI0SR1 & 0x80) && (send ==1)) {
   
     SCI0DRL = *dx;
     dx ++;
+    
+    if (dx == ptr) {
+     
+     send = 0;
+     SCI0CR2 = 0x2C;
+     
+     dx = array; 
+    }
    
     
   }
