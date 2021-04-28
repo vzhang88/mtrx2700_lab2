@@ -71,14 +71,14 @@ __interrupt void SCI0_ISR(void) {
      cx = SCI0DRL;    // read SCI0DRL
      
      
-     SCI0DRL = cx;    // show what has beeen entered on terminal
+     //SCI0DRL = cx;    // show what has beeen entered on terminal
      
      if (cx != 0x0D) {    // not a carriage return
       
      
        *ptr = SCI0DRL;  // store character in array
        
-         putcSCI0(*ptr);  
+       putcSCI0(*ptr);  // print to terminal so you can see what you're typing
        
        if (cx == 0x08)  {  //if it is a backspace character
             
@@ -94,26 +94,23 @@ __interrupt void SCI0_ISR(void) {
        } else {
         
          ptr++; // not a backspace, increment pointer by 1
-                        
+           
+         *ptr = 0;                
        }
        
     
       
      } 
-     
-      
-     *ptr = 0;
-     
-     
-  
+       
   }  
   
-  if ((SCI0SR1 & 0x80) && (dx != ptr)) {
+  
+  
+  while ((SCI0SR1 & 0x80) && ((*dx) != 0) && (cx==0x0D)) {
   
     SCI0DRL = *dx;
     dx ++;
-    
-    SCI0SR1 & 0x7F;
+   
     
   }
   
