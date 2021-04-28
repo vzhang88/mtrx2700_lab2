@@ -11,3 +11,9 @@ As each character is entered, the interrupt service routine checks the Status Re
 Once every character from the string is entered, the user presses enter. Within the interrupt service routine this will result in the character being printed but not saved to the array, and a NULL terminator added to the end of the string. The send value is toggled to indicate that a string has been sent across and the transmit interrupt is enabled.
 
 The serial interrupt service routine then checks for the TDRE flag and if both the TDRE flag and the send flag are high, then it will go to the saved array and print the character pointed to by the output pointer. This will loop through until the output pointer reaches the input pointer at the end of the array and the send flag will be toggled back to zero, a carriage return is printed and the transmit interrupt is diabled, with receive interrupt still enabled.
+
+### User Instructions
+Input any valid string to terminal and press enter. The string will save to array and be printed again underneth the entered string.
+
+### Testing
+After running the program and entering a string to terminal, spc array to inspect what has been saved to the array is the intended input string. For earlier deugging, spc the values set when initialising serial by spc SCI0CR1 etc. To test the output string is correct, simply press enter and see if what is printed again to terminal is exactly the same as what has been entered and that it will only print once not repeatedly.
