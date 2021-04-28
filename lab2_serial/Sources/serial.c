@@ -10,6 +10,8 @@ char array[200];
 char* ptr;
 char cx;
 char* dx;
+char str[200] = "abcdefghijklmnop";
+
 
    
 void Init_SCI0 (void) {
@@ -21,7 +23,8 @@ void Init_SCI0 (void) {
   SCI0CR2 = 0x2C;       // enable transmitter and receiver and receive interrupt
   
   ptr = array;         // pointer points to start of array
-
+  
+  
   dx = array;
   return;
   
@@ -30,10 +33,10 @@ void Init_SCI0 (void) {
 
 void putcSCI0 (char cx) {
  
-  if (!(SCI0SR1 & 0x80)) {
+  while (!(SCI0SR1 & 0x80));
   
     SCI0DRL = cx; 
-  }
+  
 }
 
 void putsSCI0 (char *dx) {
@@ -58,9 +61,11 @@ void delay (int x) {
 #pragma CODE_SEG __NEAR_SEG NON_BANKED
 __interrupt void SCI0_ISR(void) {
   
-  
-  if (SCI0SR1 & 0x20) {
+
+   
+  while (SCI0SR1 & 0x20) {
   // read status register to reset flag
+    
     
      
      cx = SCI0DRL;    // read SCI0DRL
@@ -101,16 +106,17 @@ __interrupt void SCI0_ISR(void) {
      
      
   
-  }    
+  }  
   
+  if ((SCI0SR1 & 0x80) && (dx != ptr)) {
   
-  
-  if (SCI0SR1 & 0x80) {
-      
-     // write operation
-   
-
+    SCI0DRL = *dx;
+    dx ++;
+    
+    SCI0SR1 & 0x7F;
+    
   }
+  
   
   
   
