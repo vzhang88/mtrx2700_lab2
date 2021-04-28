@@ -14,13 +14,13 @@ char str[200] = "abcdefghijklmnop";
 
 
    
-void Init_SCI0 (void) {
+void Init_SCI0 (struct ports *data) {
   
   // set up serial port SCI0 to use interrupt
-  SCI0BDH = 0x00;       // set up baud rate
-  SCI0BDL = 0x9C;       // set up baud rate
-  SCI0CR1 = 0x4C;       // clear all options
-  SCI0CR2 = 0x2C;       // enable transmitter and receiver and receive interrupt
+  SCI0BDH = data->BDH_value;       // set up baud rate
+  SCI0BDL = data->BDL_value;       // set up baud rate
+  SCI0CR1 = data->CR1_value;       // clear all options
+  SCI0CR2 = data->CR2_value;       // enable transmitter and receiver and receive interrupt
   
   ptr = array;         // pointer points to start of array
   

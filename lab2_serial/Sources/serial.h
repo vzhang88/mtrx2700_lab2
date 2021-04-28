@@ -3,7 +3,7 @@
 
 
 //function to initialise serial SCI0
-void Init_SCI0 (void);
+void Init_SCI0 (struct ports *data);
 
 
 void putcSCI0 (char cx);

@@ -11,9 +11,9 @@ void main(void) {
   port.BDH_value = 0x00;
   port.BDL_value = 0x9C;
   port.CR1_value = 0x4C;
-  port.CR2_value = 0xAC;
+  port.CR2_value = 0x2C;
   
-  Init_SCI0();
+  Init_SCI0(&port);
 
 	EnableInterrupts;
 	
