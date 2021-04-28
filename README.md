@@ -31,7 +31,7 @@ Input any valid string to terminal and press enter. The string will save to arra
 ### Testing
 After running the program and entering a string to terminal, spc array to inspect what has been saved to the array is the intended input string. For earlier deugging, spc the values set when initialising serial by spc SCI0CR1 etc. To test the output string is correct, simply press enter and see if what is printed again to terminal is exactly the same as what has been entered and that it will only print once not repeatedly.
 
-### Exercise 3 Option 3: Speaker
+## Exercise 3 Option 3: Speaker
 The module is created in the file sound.c, and the functions are linked to the main.c file with the header file sound.h. Inside the main.c file contains the enabling of the ports for the LED and the ports for the speaker, titled "Initialise". Interrupts are turned off before intiailising and then on again after. The main.c file then calls upon the sound function wher the rest of the sound module lies. 
 
 The Sound function will play a tune found within a predefined string located in the sound.c file. It first counts through the string to see how many notes there are. Then the function will enter the main for loop to run through the notes one by one. First, within the for loop, the count is decreased by one. Then the current note in the string is polled to see if it the end of song flag. If so then the speakers are turned off and the for loop is broken, ending the sound function and returning to the main.c file. Otherwise, the function will update the note in the string titled “song[i]” to the variable “musicNote”. This will trigger the interupt.
@@ -40,7 +40,7 @@ The interrupt is trigger when the music note value is updated, and in turn will 
 
 The second part of the main for loop is the display for the number of notes left on the 7 segment display. The notes run on the average song speed of 120bpm where one note takes up half a second. If the number of notes left has two digits, the ouput will switch between the digits every 0.04 of a second, 25 times to reach 0.5 of a second. Otherwise if there is just one digit, a half second delay is added after displaying the number.
 
-## User instructions:
+### User instructions:
 Start the code by changing the function variable number to 3, and then run the debugger. The number 0 will hold at the end of the runtime and it must be reset before running again. To change the song, update the notes in the song string found in the sound.c file. 
-## Testing:
+### Testing:
 After the debugger is run, the sound should play and the countdown on the notes left should run automatically.
