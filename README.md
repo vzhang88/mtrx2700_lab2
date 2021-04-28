@@ -1,1 +1,13 @@
 # Lab 2: C coding for microcontrollers
+## Members
+
+## Exercise 2: Serial Module
+The program uses the serial module to receive and transmit to serial in the background through interrupts. The functions used in the program are:
+
+When the terminal is opened and a string is entered, the enabled receive interrupt for serial will trigger an interrupt service routine. This will save each character to an array. This is all done in the serial.c module, connected to main.c with the serial.h header. The main function only has the purpose of initialising and then enabling the interrupts, and then waiting in a loop for any interrupts to occur. The initialise function calls the function in serial.c which sets up the baud rate and control register values for the serial port.
+
+As each character is entered, the interrupt service routine checks the Status Register 1 value for the RDRF and TDRE flags. The RDRF flag is set, so the received byte will be read in and saved to array pointed to by pointer. It then uses the putc function to print the character to the terminal so there is an indication of what has been typed. 
+
+Once every character from the string is entered, the user presses enter. Within the interrupt service routine this will result in the character being printed but not saved to the array, and a NULL terminator added to the end of the string. The send value is toggled to indicate that a string has been sent across and the transmit interrupt is enabled.
+
+The serial interrupt service routine then checks for the TDRE flag and if both the TDRE flag and the send flag are high, then it will go to the saved array and print the character pointed to by the output pointer. This will loop through until the output pointer reaches the input pointer at the end of the array and the send flag will be toggled back to zero, a carriage return is printed and the transmit interrupt is diabled, with receive interrupt still enabled.
