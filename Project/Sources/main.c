@@ -2,18 +2,14 @@
 #include "derivative.h"      /* derivative-specific definitions */
 #include "stdlib.h"
 
-#include "serial.h"
-
+#include "serial2.h"
 
 void main(void) {
   
-  struct ports port; //declare port of type ports
-  port.BDH_value = 0x00;
-  port.BDL_value = 0x9C;
-  port.CR1_value = 0x4C;
-  port.CR2_value = 0xAC;
+
   
-  Init_SCI0();
+  
+  Init_SCI1();
 
 	EnableInterrupts;
 	

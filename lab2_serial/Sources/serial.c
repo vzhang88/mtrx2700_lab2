@@ -18,7 +18,7 @@ void Init_SCI0 (void) {
   SCI0BDH = 0x00;       // set up baud rate
   SCI0BDL = 0x9C;       // set up baud rate
   SCI0CR1 = 0x4C;       // clear all options
-  SCI0CR2 = 0xAC;       // enable transmitter and receiver and receive interrupt
+  SCI0CR2 = 0x2C;       // enable transmitter and receiver and receive interrupt
   
   ptr = array;         // pointer points to start of array
 
@@ -26,6 +26,7 @@ void Init_SCI0 (void) {
   return;
   
 }
+
 
 void putcSCI0 (char cx) {
  
@@ -38,10 +39,12 @@ void putcSCI0 (char cx) {
 void putsSCI0 (char *dx) {
  while (!(*dx)) {
     putcSCI0(*dx);
-    cx++;
+    dx++;
     
  }
 }
+
+
 
 
 void delay (int x) {
@@ -105,15 +108,13 @@ __interrupt void SCI0_ISR(void) {
   if (SCI0SR1 & 0x80) {
       
      // write operation
-     putsSCI0 (dx);
-      
+   
 
   }
   
   
   
 }
-
 
 
 /*
