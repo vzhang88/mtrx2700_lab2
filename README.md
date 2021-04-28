@@ -2,9 +2,9 @@
 ## Members
 
 ## Exercise 2: Serial Module
-The program uses the serial module to receive and transmit to serial in the background through interrupts. The functions used in the program are:
+The program uses the serial module to receive and transmit to serial in the background through interrupts. The functions used in the program are the Init_SCi which initialises the serial through setting up the baud rate and control register values, the interrupt service routine which defines what happens when the serial interrupt occurs, and the putc function, where the entered character is taken and printed to the terminal. THe paramters used in serial receiving and transmitting are the array where the received string is stored, the pointer to the input, the pointer to the intended output when transmitting, and the send flag. These are saved in a struct.
 
-When the terminal is opened and a string is entered, the enabled receive interrupt for serial will trigger an interrupt service routine. This will save each character to an array. This is all done in the serial.c module, connected to main.c with the serial.h header. The main function only has the purpose of initialising and then enabling the interrupts, and then waiting in a loop for any interrupts to occur. The initialise function calls the function in serial.c which sets up the baud rate and control register values for the serial port.
+When the terminal is opened and a string is entered, the enabled receive interrupt for serial will trigger an interrupt service routine. This will save each character to an array. This is all done in the serial.c module, connected to main.c with the serial.h header. The main function only has the purpose of initialising and then enabling the interrupts, and then waiting in a loop for any interrupts to occur. The initialise function calls the function in serial.c.
 
 As each character is entered, the interrupt service routine checks the Status Register 1 value for the RDRF and TDRE flags. The RDRF flag is set, so the received byte will be read in and saved to array pointed to by pointer. It then uses the putc function to print the character to the terminal so there is an indication of what has been typed. 
 
