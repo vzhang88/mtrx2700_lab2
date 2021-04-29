@@ -6,13 +6,17 @@
 #include "serial.h"
 
 
-
+int function = 3;
   
 
 
 void main(void){
 
-int function = 3;
+Init_SCI0();
+
+
+
+
 
 
 if(function ==3){

@@ -18,14 +18,15 @@ __interrupt void TOF_ISR(void) {
 }
 
 
+/*
 int printSerial(int arr[4][6]){
     char str[100];
     char types[6][12] = {"Add", "Multiply", "Divide", "Squareroot", "Sin", "Cos"};
 
-    /* Make an array of strings */
+    // Make an array of strings 
     sprintf(str, "%11s %11s %11s %11s %11s %11s %11s", " ", "Add", "Multiply", "Divide", "Squareroot", "Sin", "Cos");
     
-    /* Send this string across serial */
+    // Send this string across serial 
     Init_out_SCI0(str);
     
     for(int i=0; i < 4; i++){
@@ -33,9 +34,12 @@ int printSerial(int arr[4][6]){
         Init_out_SCI0(str);
     }
 }
-
+  */
+  
 void main(void) {
   /* put your own code here */  
+  
+  
   int tcnt1, tcnt2;
    
   int array[4][6] = {0};
@@ -321,9 +325,10 @@ void main(void) {
   }
   
   
-  /***** PRINTING TO SERIAL ********/
+  /***** PRINTING TO SERIAL *******
   
   printSerial(array[][]);
+  */
 
   for(;;) {
     _FEED_COP(); /* feeds the dog */
